@@ -7,11 +7,19 @@ var express = require('express'),
 
 var router = new PromiseRouter();
 
+function objToMap(obj) {
+    var strMap = new Map();
+    for (var k of Object.keys(obj)) {
+        strMap.set(k, obj[k]);
+    }
+    return strMap;
+}
 function handleCloudFunction(req) {
   if (Parse.Cloud.Functions[req.params.functionName]) {
     return new Promise(function (resolve, reject) {
       var response = createResponseObject(resolve, reject);
       var request = {
+        parameters: objToMap(req.body) || new Map(),
         params: req.body || {},
         user: req.auth && req.auth.user || {}
       };
