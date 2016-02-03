@@ -12,6 +12,7 @@ var batch = require('./batch'),
     Parse = require('parse/node').Parse,
     PromiseRouter = require('./PromiseRouter'),
     request = require('request');
+    hotload = require('hotload')
 
 // Mutate the Parse object to add the Cloud Code handlers
 addParseCloud();
@@ -57,7 +58,7 @@ function ParseServer(args) {
     if (typeof args.cloud === 'function') {
       args.cloud(Parse)
     } else if (typeof args.cloud === 'string') {
-      require(args.cloud);
+      hotload(args.cloud);
     } else {
       throw "argument 'cloud' must either be a string or a function";
     }
