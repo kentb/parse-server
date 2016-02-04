@@ -20,7 +20,8 @@
     "multer": "~0.1.8",
     "parse": "~1.6.12",
     "request": "^2.65.0",
-    "hotload": "0.0.5"
+    "hotload": "0.0.5",
+    "sync-request":"3.0.0"
   },
   "devDependencies": {
     "codecov": "^1.0.1",

@@ -11,8 +11,9 @@ var batch = require('./batch'),
     multer = require('multer'),
     Parse = require('parse/node').Parse,
     PromiseRouter = require('./PromiseRouter'),
-    request = require('request');
-    hotload = require('hotload')
+    request = require('request'),
+    hotload = require('hotload'),
+    syncRequest = require('sync-request');
 
 // Mutate the Parse object to add the Cloud Code handlers
 addParseCloud();
@@ -149,7 +150,8 @@ function addParseCloud() {
     var className = getClassName(parseClass);
     Parse.Cloud.Triggers.afterDelete[className] = handler;
   };
-  Parse.Cloud.httpRequest = function(options) {
+  Parse.Cloud.httpRequest = syncRequest;
+  Parse.Cloud.httpRequest2 = function(options) {
     var promise = new Parse.Promise();
     var callbacks = {
       success: options.success,
